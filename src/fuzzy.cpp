@@ -13,9 +13,9 @@ void find_fuzzy(string DNA, string id, int unitlen_p, unsigned int ssrlen_p, int
 
                 for (unsigned short ssr_len=1; ssr_len<= unitlen_p ; ssr_len++){ // unitlen_p : longest length of unit, default: 6
 
-			//if( start+(ssr_len*2+insertion_p) > DNA.length() ){ // at least two repeats will be output, if start+ssr_len * 2 > DNA.length, which will be no meaning
-			//	break;
-			//}
+			if( start+(ssr_len*2+insertion_p) > DNA.length() ){ // at least two repeats will be output, if start+ssr_len * 2 > DNA.length, which will be no meaning
+				break;
+			}
 			
 			//if( ssr_len > 1){ // avoid AAAAA as a unit
 			//	char add_left;
