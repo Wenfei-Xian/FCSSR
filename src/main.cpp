@@ -90,7 +90,7 @@ int perfect_model( int argc, char *argv[] ){
 	unsigned int flanking_p=0;
 	int revercomple_p=0;
 
-	while(( c=getopt(argc, argv, "f:l:L:s:u:r:n")) >= 0){ // :一个:表示必须有后接参数，两个::表示可选参数，没有:表示不用接参数
+	while(( c=getopt(argc, argv, "f:l:L:s:u:r:n:")) >= 0){ // :一个:表示必须有后接参数，两个::表示可选参数，没有:表示不用接参数
 		if( c == 'f'){
 			fasta = optarg;
 			para++;
@@ -195,7 +195,7 @@ int fuzzy_model( int argc, char *argv[] ){
 
 	int para=0;
 	
-	while(( c=getopt( argc, argv, "f:l:L:i:P:b:m:s:u:r:n")) >= 0 ){
+	while(( c=getopt( argc, argv, "f:l:L:i:P:b:m:s:u:r:n:")) >= 0 ){
 
 		if( c == 'f' ){
 			fasta=optarg;
