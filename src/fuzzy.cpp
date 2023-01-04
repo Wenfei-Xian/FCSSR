@@ -1,6 +1,6 @@
 #include "fuzzy.h"
 
-void find_fuzzy(string DNA, string id, int unitlen_p, unsigned int ssrlen_p, int insertion_p, float unmatch_ssr_p, int both_p, int up_p, unsigned int flanking_p, int unmatch_num_p, int revercomple_p ){
+void find_fuzzy(string DNA, string id, int unitlen_p, unsigned int ssrlen_p, int insertion_p, float unmatch_ssr_p, int both_p, int up_p, unsigned int flanking_p, int unmatch_num_p, int revercomple_p, int mincopy_p ){
 
 	if( up_p == 1){ // up_p : whether transfer all the character to upper, default: 0
 		transform( DNA.begin(), DNA.end(), DNA.begin(), ::toupper);
@@ -13,9 +13,9 @@ void find_fuzzy(string DNA, string id, int unitlen_p, unsigned int ssrlen_p, int
 
                 for (unsigned short ssr_len=1; ssr_len<= unitlen_p ; ssr_len++){ // unitlen_p : longest length of unit, default: 6
 
-			if( start+(ssr_len*2+insertion_p) > DNA.length() ){ // at least two repeats will be output, if start+ssr_len * 2 > DNA.length, which will be no meaning
-				break;
-			}
+			//if( start+(ssr_len*2+insertion_p) > DNA.length() ){ // at least two repeats will be output, if start+ssr_len * 2 > DNA.length, which will be no meaning
+			//	break;
+			//}
 			
 			//if( ssr_len > 1){ // avoid AAAAA as a unit
 			//	char add_left;
@@ -191,7 +191,7 @@ void find_fuzzy(string DNA, string id, int unitlen_p, unsigned int ssrlen_p, int
                                 }
                         }
 
-			if( ssr_len * repeat >= ssrlen_p && (start_new - start) >= ssrlen_p && repeat > 1 ){
+			if( ssr_len * repeat >= ssrlen_p && (start_new - start) >= ssrlen_p && repeat >= mincopy_p ){
 				if( revercomple_p > 0 ){
 					string ssr_recom;
 					ssr_recom=left_unit;

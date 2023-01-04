@@ -84,12 +84,13 @@ int perfect_model( int argc, char *argv[] ){
 	int unitlen_p=6;
 	int ssrlen_p=10;
 	int up_p=1;
+	int mincopy_p=2;
 	string fasta;
 	int para=0;
 	unsigned int flanking_p=0;
 	int revercomple_p=0;
 
-	while(( c=getopt(argc, argv, "f:l:L:s:u:r:")) >= 0){ // :一个:表示必须有后接参数，两个::表示可选参数，没有:表示不用接参数
+	while(( c=getopt(argc, argv, "f:l:L:s:u:r:n")) >= 0){ // :一个:表示必须有后接参数，两个::表示可选参数，没有:表示不用接参数
 		if( c == 'f'){
 			fasta = optarg;
 			para++;
@@ -114,6 +115,10 @@ int perfect_model( int argc, char *argv[] ){
 			revercomple_p = atof(optarg);
 			para++;
 		}
+		else if( c == 'n' ){
+			mincopy_p = atof(optarg);
+			para++;
+		}
 	}
 
 	if( para == 0 ){ // defaule !=6
@@ -123,6 +128,7 @@ int perfect_model( int argc, char *argv[] ){
         	cout << "       -f string     fasta format file (mandatory)" << endl;
        		cout << "       -l int        maximum length of SSR unit (default value: 6)" << endl;
         	cout << "       -L int        minimum length of SSRs region (default value: 10)" << endl;
+		cout << "	-n int        minimum copy number (default value: 3)" << endl;
 		cout << "       -s int        whether output the flanking sequence of SSR region (default value: 0 -> don't output; -s1 -> output)" << endl;
 		cout << "       -u int        whether replace all letters with uppercase letters (default value: 1 -> replace; -u0 -> don't replace)" << endl;
 		cout << "       -r int        whether output the reverse complement sequeuce (default value: 0 -> don't output; -r1 -> output)" << endl; 
@@ -156,7 +162,7 @@ int perfect_model( int argc, char *argv[] ){
 		}
 		if( line[0] == '>' ){
 			if( !id.empty() ){
-				find_perfect( DNA, id, unitlen_p, ssrlen_p, flanking_p, up_p, revercomple_p);
+				find_perfect( DNA, id, unitlen_p, ssrlen_p, flanking_p, up_p, revercomple_p,mincopy_p);
 			}
 			id=line.substr(1);
 			DNA.clear();
@@ -166,7 +172,7 @@ int perfect_model( int argc, char *argv[] ){
 		}
 	}
 	if( !id.empty() ){
-		find_perfect( DNA, id, unitlen_p, ssrlen_p, flanking_p, up_p, revercomple_p);
+		find_perfect( DNA, id, unitlen_p, ssrlen_p, flanking_p, up_p, revercomple_p,mincopy_p);
 	}
 	return 0;
 }
@@ -176,22 +182,20 @@ int fuzzy_model( int argc, char *argv[] ){
 	int c;
 	int unitlen_p=6;
 	int ssrlen_p=10;
-
 	int insertion_p=1;
-
 	float unmatch_ssr_p=0.1f;
-
 	int up_p=0;
 	int both_p=0;
 	int unmatch_num_p=1;
 	int flanking_p=0;
 	int revercomple_p=0;
+	int mincopy_p=2;
 
 	string fasta;
 
 	int para=0;
 	
-	while(( c=getopt( argc, argv, "f:l:L:i:P:b:m:s:u:r:")) >= 0 ){
+	while(( c=getopt( argc, argv, "f:l:L:i:P:b:m:s:u:r:n")) >= 0 ){
 
 		if( c == 'f' ){
 			fasta=optarg;
@@ -233,6 +237,10 @@ int fuzzy_model( int argc, char *argv[] ){
 			revercomple_p=atof(optarg);
 			para++;
 		}
+		else if( c == 'n'){
+			mincopy_p=atof(optarg);
+			para++;
+		}
 
 	}
 
@@ -244,6 +252,7 @@ int fuzzy_model( int argc, char *argv[] ){
                 cout << "	-l int        maximum length of SSR unit (default value: 6)" << endl;
                 cout << "	-L int        minimum length of SSRs region (default value: 10)" << endl;
 		cout << "	-i int        maximum length of insertion allowed within unit (default value: 1)" << endl;
+		cout << "	-n int        minimum copy number (default value: 3)" << endl;
 		cout << "	-m int        maximum length of unmatch within unit (default value: 1)" << endl;
 		cout << "	-b int        whether allow deletion/mismatch and insertion retain in one unit, 1 allow, 0 not allow (default value: 0)" << endl;
 		cout << "	-P int        maximum unmatch(inserted+mismatch+deleted) percentage whold SSRs region (default value: 0.1)" << endl;
@@ -281,7 +290,7 @@ int fuzzy_model( int argc, char *argv[] ){
                 if( line[0] == '>' ){
                         if( !id.empty() ){
 				//find_fuzzy( DNA, id, unitlen_p, ssrlen_p, insertion_p, unmatch_ssr_p,both_p, unmatch_num_p, up_p, flanking_p );
-        			find_fuzzy( DNA, id, unitlen_p, ssrlen_p, insertion_p, unmatch_ssr_p, both_p, up_p, flanking_p, unmatch_num_p, revercomple_p );
+        			find_fuzzy( DNA, id, unitlen_p, ssrlen_p, insertion_p, unmatch_ssr_p, both_p, up_p, flanking_p, unmatch_num_p, revercomple_p,mincopy_p );
 			}
                         id=line.substr(1);
                         DNA.clear();
@@ -291,7 +300,7 @@ int fuzzy_model( int argc, char *argv[] ){
                 }
         }
         if( !id.empty() ){
-		find_fuzzy( DNA, id, unitlen_p, ssrlen_p, insertion_p, unmatch_ssr_p, both_p, up_p, flanking_p, unmatch_num_p, revercomple_p );
+		find_fuzzy( DNA, id, unitlen_p, ssrlen_p, insertion_p, unmatch_ssr_p, both_p, up_p, flanking_p, unmatch_num_p, revercomple_p,mincopy_p );
 		//find_fuzzy( DNA, id, unitlen_p, ssrlen_p, insertion_p, unmatch_ssr_p, both_p, unmatch_num_p, up_p, flanking_p);
         }
 	return 0;

@@ -1,5 +1,5 @@
 #include "perfect.h"
-void find_perfect(string DNA, string id, int unitlen_p, int ssrlen_p, unsigned int flanking_p, int up_p, int revercomple_p ){
+void find_perfect(string DNA, string id, int unitlen_p, int ssrlen_p, unsigned int flanking_p, int up_p, int revercomple_p, int mincopy_p ){
 
 	unsigned int DNA_len=DNA.length();
 
@@ -33,7 +33,7 @@ void find_perfect(string DNA, string id, int unitlen_p, int ssrlen_p, unsigned i
                         }
 
 			// output format: Chr/Scaffold	Start	End	SSR	Repeat	SSR_region SSR_region_flanking
-			if( ssr_len*repeat >= ssrlen_p && repeat > 1){
+			if( ssr_len*repeat >= ssrlen_p && repeat >= mincopy_p){
 				std::ios::sync_with_stdio(false);
 				std::cin.tie(0);
                                 string ssr_region;
