@@ -127,8 +127,8 @@ int perfect_model( int argc, char *argv[] ){
 	        cout << "arguments:" << endl;
         	cout << "       -f string     fasta format file (mandatory)" << endl;
        		cout << "       -l int        maximum length of SSR unit (default value: 6)" << endl;
-        	cout << "       -L int        minimum length of SSRs region (default value: 10)" << endl;
-		cout << "	-n int        minimum copy number (default value: 2)" << endl;
+        	cout << " 	-L int        minimum length of SSRs region (default value: 10)" << endl;
+		cout << "       -n int        minimum copy number (default value: 2)" << endl;
 		cout << "       -s int        whether output the flanking sequence of SSR region (default value: 0 -> don't output; -s1 -> output)" << endl;
 		cout << "       -u int        whether replace all letters with uppercase letters (default value: 1 -> replace; -u0 -> don't replace)" << endl;
 		cout << "       -r int        whether output the reverse complement sequeuce (default value: 0 -> don't output; -r1 -> output)" << endl; 
