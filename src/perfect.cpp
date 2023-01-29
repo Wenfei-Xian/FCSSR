@@ -1,7 +1,19 @@
 #include "perfect.h"
-void find_perfect(string DNA, string id, int unitlen_p, int ssrlen_p, unsigned int flanking_p, int up_p, int revercomple_p, int mincopy_p ){
 
+//void find_perfect(string DNA, string id, int unitlen_p, int ssrlen_p, unsigned int flanking_p, int up_p, int revercomple_p, int mincopy_p, string cutoffunit_p ){
+void find_perfect(string DNA, string id, int unitlen_p, unsigned int flanking_p, int up_p, int revercomple_p, string cutoffunit_p ){
 	unsigned int DNA_len=DNA.length();
+
+	int cutoff_array_main[unitlen_p]={0};
+	istringstream iss(cutoffunit_p);
+	string token;
+	char split=',';
+	int pos=0;
+	while( getline(iss, token, split) ){
+		int cutoff = stoi(token);
+		cutoff_array_main[pos]=cutoff;
+		pos++;
+	}
 
 	if( up_p == 1 ){
 		transform( DNA.begin(), DNA.end(), DNA.begin(), ::toupper );
@@ -33,7 +45,8 @@ void find_perfect(string DNA, string id, int unitlen_p, int ssrlen_p, unsigned i
                         }
 
 			// output format: Chr/Scaffold	Start	End	SSR	Repeat	SSR_region SSR_region_flanking
-			if( ssr_len*repeat >= ssrlen_p && repeat >= mincopy_p){
+			//if( ssr_len*repeat >= ssrlen_p && repeat >= mincopy_p){
+			if( repeat >= cutoff_array_main[ssr_len-1] ){
 				std::ios::sync_with_stdio(false);
 				std::cin.tie(0);
                                 string ssr_region;

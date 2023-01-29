@@ -1,9 +1,21 @@
 #include "fuzzy.h"
 
-void find_fuzzy(string DNA, string id, int unitlen_p, unsigned int ssrlen_p, int insertion_p, float unmatch_ssr_p, int both_p, int up_p, unsigned int flanking_p, int unmatch_num_p, int revercomple_p, int mincopy_p ){
+//void find_fuzzy(string DNA, string id, int unitlen_p, unsigned int ssrlen_p, int insertion_p, float unmatch_ssr_p, int both_p, int up_p, unsigned int flanking_p, int unmatch_num_p, int revercomple_p, int mincopy_p ){
+void find_fuzzy(string DNA, string id, int unitlen_p, int insertion_p, float unmatch_ssr_p, int both_p, int up_p, unsigned int flanking_p, int unmatch_num_p, int revercomple_p, string cutoffunit_p ){
 
 	if( up_p == 1){ // up_p : whether transfer all the character to upper, default: 0
 		transform( DNA.begin(), DNA.end(), DNA.begin(), ::toupper);
+	}
+
+	int cutoff_array_main[unitlen_p]={0};
+	istringstream iss(cutoffunit_p);
+	string token;
+	char split=',';
+	int pos=0;
+	while( getline(iss, token, split) ){
+		int cutoff = stoi(token);
+		cutoff_array_main[pos]=cutoff;
+		pos++;
 	}
 
         unsigned int DNA_len=DNA.length();
@@ -12,7 +24,8 @@ void find_fuzzy(string DNA, string id, int unitlen_p, unsigned int ssrlen_p, int
         for ( unsigned int start=0; start < (DNA_len-unitlen_p) ; start++){
 
                 for (unsigned short ssr_len=1; ssr_len<= unitlen_p ; ssr_len++){ // unitlen_p : longest length of unit, default: 6
-
+			
+			unsigned int ssrlen_p=cutoff_array_main[ssr_len-1]*ssr_len;
 			//if( start+(ssr_len*2+insertion_p) > DNA.length() ){ // at least two repeats will be output, if start+ssr_len * 2 > DNA.length, which will be no meaning
 			//	break;
 			//}
@@ -112,11 +125,12 @@ void find_fuzzy(string DNA, string id, int unitlen_p, unsigned int ssrlen_p, int
 					// 2) ssr region level
 					else{ // when unit length = 1, unmatch will be considered as insertion. Eventhough insertion is the same as mismatch.
 						insert_sumbase+=matchright[1];
-						if( (start_new - start) < ssrlen_p && insert_sumbase > ssrlen_p*unmatch_ssr_p ){
+						if( (start_new - start) < ssrlen_p*ssr_len && insert_sumbase > ssrlen_p*unmatch_ssr_p ){
 							insert_sumbase-=matchright[1];
 							break;
 						}
-						else if( (start_new - start) >= ssrlen_p && insert_sumbase > (start_new - start) * unmatch_ssr_p ){
+						//else if( (start_new - start) >= ssrlen_p && insert_sumbase > (start_new - start) * unmatch_ssr_p ){
+						else if( (start_new - start ) >= ssrlen_p && insert_sumbase > (start_new - start) * unmatch_ssr_p ){
 							insert_sumbase-=matchright[1];
 							break;
 						}
@@ -169,7 +183,7 @@ void find_fuzzy(string DNA, string id, int unitlen_p, unsigned int ssrlen_p, int
 					}
 					else if( matchright[match] < ssr_len-1 ){ // delete allowed
 						delete_sumbase+=(ssr_len-match);
-						if( (delete_sumbase + mismatch_sumbase + insert_sumbase) > ssrlen_p*unmatch_ssr_p && (start_new - start) < ssrlen_p ){
+						if( (delete_sumbase + mismatch_sumbase + insert_sumbase) > ssrlen_p*unmatch_ssr_p && ssrlen_p ){
 							delete_sumbase-=(ssr_len-match);
 							break;
 						}
@@ -191,7 +205,8 @@ void find_fuzzy(string DNA, string id, int unitlen_p, unsigned int ssrlen_p, int
                                 }
                         }
 
-			if( ssr_len * repeat >= ssrlen_p && (start_new - start) >= ssrlen_p && repeat >= mincopy_p ){
+			//if( ssr_len * repeat >= ssrlen_p && (start_new - start) >= ssrlen_p && repeat >= mincopy_p ){
+			if( repeat >= cutoff_array_main[ssr_len-1] ){
 				if( revercomple_p > 0 ){
 					string ssr_recom;
 					ssr_recom=left_unit;
