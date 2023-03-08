@@ -135,7 +135,7 @@ int perfect_model( int argc, char *argv[] ){
        		cout << "       -l int        maximum length of SSR unit (default value: 6)" << endl;
         	//cout << "       -L int        minimum length of SSRs region (default value: 10)" << endl;
 		//cout << "       -n int        minimum copy number (default value: 2)" << endl;
-		cout << "       -c string     lenght cutoff for each unit, the number of cutoff should be the same as SSR unit (default value: 10,5,4,3,2,2)" << endl;
+		cout << "       -c string     copy cutoff for each unit, the number of cutoff should be the same as SSR unit (default value: 10,5,4,3,2,2)" << endl;
 		cout << "       -s int        whether output the flanking sequence of SSR region (default value: 0 -> don't output; length of flanking sequences -> output)" << endl;
 		cout << "       -u int        whether replace all letters with uppercase letters (default value: 1 -> replace; 0 -> don't replace)" << endl;
 		cout << "       -r int        whether output the reverse complement sequence (default value: 0 -> don't output; 1 -> output)" << endl; 
@@ -273,7 +273,7 @@ int fuzzy_model( int argc, char *argv[] ){
                 //cout << "	-L int        minimum length of SSRs region (default value: 10)" << endl;
 		cout << "	-i int        maximum length of insertion allowed within unit (default value: 1)" << endl;
 		//cout << "	-n int        minimum copy number (default value: 2)" << endl;
-		cout << "	-c string     lenght cutoff for each unit, the number of cutoff should be the same as SSR unit (default value: 10,5,4,3,2,2)" << endl;
+		cout << "	-c string     copy cutoff for each unit, the number of cutoff should be the same as SSR unit (default value: 10,5,4,3,2,2)" << endl;
 		cout << "	-m int        maximum length of unmatch within unit (default value: 1)" << endl;
 		cout << "	-b int        whether allow deletion/mismatch and insertion retain in one unit, 1 allow, 0 not allow (default value: 0)" << endl;
 		cout << "	-P int        maximum unmatch(inserted+mismatch+deleted) percentage whold SSRs region (default value: 0.1)" << endl;
