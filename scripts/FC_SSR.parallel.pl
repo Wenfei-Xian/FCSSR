@@ -1,3 +1,7 @@
+### $ARGV[0]: fasta file
+### $ARGV[1]: threads
+### $ARGV[2]: perfect or fuzzy
+
 my$local_datestring = localtime();
 print "$local_datestring\n";
 my$folder="$ARGV[0].dir";
@@ -41,7 +45,7 @@ while(<IN1>){
 		my$subseq=substr($seq,$start,100001000);
 		#print "$ID\t$start\n";
 		push @{$hash_chr_split{$ID}},$order;
-		print OUT2 "./FC_SSR perfect -f $ARGV[0].dir/$ID\_$order.fa -l 6 -L 10 -s 0 -u 0 -r 0 > $ARGV[0].dir/$ID\_$order.fa.FC_SSR.out\n";
+		print OUT2 "FCSSR $ARGV[2] -f $ARGV[0].dir/$ID\_$order.fa > $ARGV[0].dir/$ID\_$order.fa.FC_SSR.out\n";
 		open OUT1,">$ARGV[0].dir/$ID\_$order.fa";
 		print OUT1 ">$ID\_$order\n$subseq\n";
 		$order++;
@@ -51,7 +55,7 @@ $/="\n";
 $local_datestring = localtime();
 print "$local_datestring\n";
 
-`cat $ARGV[0].parallel.sh | parallel -j 2 2> $ARGV[0].parallel.sh.err`;
+`cat $ARGV[0].parallel.sh | parallel -j $ARGV[1] 2> $ARGV[0].parallel.sh.err`;
 $local_datestring = localtime();
 print "$local_datestring\n";
 
