@@ -13,14 +13,14 @@ make clean && make
 ./FCSSR
 This program consists of two SSR searching modules: perfect and fuzzy
 Version:1.0, March,2023
-Usage: FC_SSR <command> <arguments>
+Usage: FC_SSR <command> [options]
 Command:
 	perfect: perfect model
 	fuzzy: fuzzy model
 ```
 
 ```
-Usage: FC_SSR perfect <argument>
+Usage: FC_SSR perfect [options]
 arguments:
        -f string     fasta format file (mandatory)
        -l int        maximum length of SSR unit (default value: 6)
@@ -31,7 +31,7 @@ arguments:
 ```
 
 ```
-Usage: FC_SSR perfect <argument>
+Usage: FC_SSR perfect [options]
 arguments:
 	-f string     fasta format file (mandatory)
 	-l int        maximum length of SSR unit (default value: 6)
