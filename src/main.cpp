@@ -26,7 +26,8 @@ int main( int argc, char *argv[] ){
 }
 
 int usage(){
-	cout << "This program consist with two SRR searching models: perfect and fuzzy model" << endl;
+	cout << "This program consists with two SRR searching modules: perfect and fuzzy" << endl;
+	cout << "Version:1.0, March,2023" << endl;
 	cout << "Usage: FC_SSR <command> <arguments>" << endl;
 	cout << "Command:" << endl;
 	cout << "	perfect: perfect model" << endl;
@@ -150,7 +151,7 @@ int perfect_model( int argc, char *argv[] ){
 
 	int num=count(cutoffunit_p.begin(),cutoffunit_p.end(),',');
 	if( num+1 != unitlen_p ){
-		cerr << "Maximum lenght of SSR unit is: " << unitlen_p << ", but the number of lenght cutoff for each unit is: " << num << endl;
+		cerr << "Maximum lenght of SSR unit is: " << unitlen_p << ", but the number of lenght cutoff for each unit is: " << num+1 << endl;
 		return -1;
 	}
 
@@ -290,7 +291,7 @@ int fuzzy_model( int argc, char *argv[] ){
 
 	int num=count(cutoffunit_p.begin(),cutoffunit_p.end(),',');
 	if( num+1 != unitlen_p ){
-		cerr << "Maximum lenght of SSR unit is: " << unitlen_p << ", but the number of lenght cutoff for each unit is: " << num << endl;
+		cerr << "Maximum lenght of SSR unit is: " << unitlen_p << ", but the number of lenght cutoff for each unit is: " << num+1 << endl;
 		return -1;
 	}
 
@@ -319,6 +320,7 @@ int fuzzy_model( int argc, char *argv[] ){
 				//find_fuzzy( DNA, id, unitlen_p, ssrlen_p, insertion_p, unmatch_ssr_p,both_p, unmatch_num_p, up_p, flanking_p );
         			//find_fuzzy( DNA, id, unitlen_p, ssrlen_p, insertion_p, unmatch_ssr_p, both_p, up_p, flanking_p, unmatch_num_p, revercomple_p,mincopy_p );
 				find_fuzzy( DNA, id, unitlen_p, insertion_p, unmatch_ssr_p, both_p, up_p, flanking_p, unmatch_num_p, revercomple_p, cutoffunit_p );
+				//find_fuzzy( DNA, id, unitlen_p, insertion_p, unmatch_ssr_p, up_p, flanking_p, unmatch_num_p, revercomple_p, cutoffunit_p );
 			}
                         id=line.substr(1);
                         DNA.clear();
@@ -331,6 +333,7 @@ int fuzzy_model( int argc, char *argv[] ){
 		//find_fuzzy( DNA, id, unitlen_p, ssrlen_p, insertion_p, unmatch_ssr_p, both_p, up_p, flanking_p, unmatch_num_p, revercomple_p,mincopy_p );
 		//find_fuzzy( DNA, id, unitlen_p, ssrlen_p, insertion_p, unmatch_ssr_p, both_p, unmatch_num_p, up_p, flanking_p);
 		find_fuzzy( DNA, id, unitlen_p, insertion_p, unmatch_ssr_p, both_p, up_p, flanking_p, unmatch_num_p, revercomple_p, cutoffunit_p );
+		//find_fuzzy( DNA, id, unitlen_p, insertion_p, unmatch_ssr_p, up_p, flanking_p, unmatch_num_p, revercomple_p, cutoffunit_p );
         }
 	return 0;
 }

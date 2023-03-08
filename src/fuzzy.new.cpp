@@ -46,29 +46,33 @@ void find_fuzzy(string DNA, string id, int unitlen_p, int insertion_p, float unm
                                 short match=0; // total matched base number between unit and next unit;
                                 short rightstart=0;
                                 int insertion_change=insertion; // maximum insertion length within next unit;
-				int matchright[ssr_len+insertion_p]={0};
+				int matchright[ssr_len+insertion_p];
 				int site[ssr_len]={0};
+
+				int refunitmatch[ssr_len];
 
                                 for ( short base=0; base<ssr_len; base++ ){// compare unit and next unit
                                         
 					char left(DNA[start+base]);
-					if( left == 'N' ){
-						break;
-					}
                                         char right;
+
+					refunitmatch[base] = 9999;
 
                                         for( short ins=0; ins <= insertion_change; ins++ ){ // for each base comparision, how many insertion quota left.
 
-                                                left = (DNA[start+base]);
                                                 right = (DNA[start_new+rightstart+ins]);
 						
 						if( left != right ){
 							continue;
 						}
+						else if( left == 'N' ){
+							break;
+						}
 						else if( left == right ){
 							site[base]=1;
                                                         match++;
                                                         matchright[match]=rightstart+ins;
+							refunitmatch[base]=rightstart+ins;
                                                         rightstart+=(ins+1);
 							if( base == 0 ){
 								insertion_change-=ins;
@@ -84,7 +88,17 @@ void find_fuzzy(string DNA, string id, int unitlen_p, int insertion_p, float unm
 						break;
                                         }
 
+					if( base > 0 && refunitmatch[base-1] == 9999 && refunitmatch[base] < base ){
+						delete_sumbase++;
+					}
+					else if( base > 0 && refunitmatch[base-1] == 9999 && refunitmatch[base] >= base){
+						mismatch_sumbase++;
+					}
+
+					//insert_sumbase+=(insertion_p-insertion_change);
+
                                 }
+				insert_sumbase+=(insertion_p-insertion_change);
 				
 				if( ssr_len == 1 ){
 
@@ -94,23 +108,32 @@ void find_fuzzy(string DNA, string id, int unitlen_p, int insertion_p, float unm
                                                 break;
                                         }
 					// 2) ssr region level
-					else{ // when unit length = 1, unmatch will be considered as insertion. Eventhough insertion is the same as mismatch.
-						insert_sumbase+=matchright[1];
-						if( (start_new - start) < ssrlen_p && insert_sumbase > ssrlen_p*unmatch_ssr_p ){
-							insert_sumbase-=matchright[1];
-							break;
-						}
-						else if( (start_new - start ) >= ssrlen_p && insert_sumbase > (start_new - start) * unmatch_ssr_p ){
-							insert_sumbase-=matchright[1];
-							break;
-						}
+					else if( (start_new - start) < ssrlen_p && insert_sumbase > ssrlen_p*unmatch_ssr_p ){
+						break;
+					}
+					else if( (start_new - start ) >= ssrlen_p && insert_sumbase > (start_new - start) * unmatch_ssr_p ){
+						break;
+					       	// when unit length = 1, unmatch will be considered as insertion. Eventhough insertion is the same as mismatch.
+						//insert_sumbase+=matchright[1];
+						//if( (start_new - start) < ssrlen_p && insert_sumbase > ssrlen_p*unmatch_ssr_p ){
+						//if( (start_new - start) < ssrlen_p*ssr_len && insert_sumbase > ssrlen_p*unmatch_ssr_p ){
+						//	insert_sumbase-=matchright[1];
+						//	break;
+						//}
+						//else if( (start_new - start ) >= ssrlen_p && insert_sumbase > (start_new - start) * unmatch_ssr_p ){
+						//	insert_sumbase-=matchright[1];
+						//	break;
+						//}
+
 					}
 
                                         ssr_region+=DNA.substr(start_new,matchright[match]+1);
+                                        
 					ssr_region+=" ";
                                         start_new+=matchright[match]+1;
 
                                 }
+				
                                 else{ // ssr_len > 1
 					
 					// two condition will break the loop 
@@ -121,49 +144,60 @@ void find_fuzzy(string DNA, string id, int unitlen_p, int insertion_p, float unm
 					else if( insertion_change < insertion_p && match < ssr_len && both_p == 0 ){ // match number more than cutoff but two types of unmatch exists
 						break;
 					}
+					else if( (delete_sumbase + mismatch_sumbase + insert_sumbase) > ssrlen_p*unmatch_ssr_p && (start_new - start) < ssrlen_p){
+						break;
+					}
+					else if( (delete_sumbase + mismatch_sumbase + insert_sumbase) > (start_new - start)*unmatch_ssr_p && (start_new - start) >= ssrlen_p ){
+						break;
+					}
+					//else if( insertion_change < insertion_p && match < ssr_len && both_p == 0 ){ // match number more than cutoff but two types of unmatch exists
+					//	break;
+					//}
+
 
 					//2) whole region level
-					else if( match == ssr_len ){ //if match == ssr_len, which mean that no mismatch and no deletion there
-						insert_sumbase+=(matchright[match]-(ssr_len-1)); // could be 0 or larger than 0
-						if( (delete_sumbase + mismatch_sumbase + insert_sumbase) > ssrlen_p*unmatch_ssr_p && (start_new - start) < ssrlen_p){
-							insert_sumbase-=(matchright[match]-(ssr_len-1));
+					//else if( match == ssr_len ){ // insertion allowed
+					//	insert_sumbase+=(matchright[match]-(ssr_len-1));
+					//	if( (delete_sumbase + mismatch_sumbase + insert_sumbase) > ssrlen_p*unmatch_ssr_p && (start_new - start) < ssrlen_p){
+					//		insert_sumbase-=(matchright[match]-(ssr_len-1));
 							//cout << start << "\t" << ssr_len << "\t" << "(delete_sumbase + mismatch_sumbase + insert_sumbase) > ssrlen_p*unmatch_ssr_p" << endl;
-							break;
-						}
-						else if( (delete_sumbase + mismatch_sumbase + insert_sumbase) > (start_new - start)*unmatch_ssr_p && (start_new - start) >= ssrlen_p ){
-							insert_sumbase-=(matchright[match]-(ssr_len-1));
+					//		break;
+					//	}
+					//	else if( (delete_sumbase + mismatch_sumbase + insert_sumbase) > (start_new - start)*unmatch_ssr_p && (start_new - start) >= ssrlen_p ){
+					//		insert_sumbase-=(matchright[match]-(ssr_len-1));
 							//cout << start << "\t" << ssr_len << "\t" << "(delete_sumbase + mismatch_sumbase + insert_sumbase) > ssrlen_p*unmatch_ssr_p" << endl;
-							break;
-						}
-					}
-					else if( matchright[match] == ssr_len-1 ){ // if match < ssr_len, maybe mismatch or deletion 
-						mismatch_sumbase+=(ssr_len-match);
-						if( (delete_sumbase + mismatch_sumbase + insert_sumbase) > ssrlen_p*unmatch_ssr_p && (start_new - start) < ssrlen_p ){
-							mismatch_sumbase-=(ssr_len-match);
-							break;
-						}
-						else if( (delete_sumbase + mismatch_sumbase + insert_sumbase) > (start_new - start)*unmatch_ssr_p && (start_new - start) >= ssrlen_p ){
-							mismatch_sumbase-=(ssr_len-match);
-							break;
-						}
-					}
-					else if( matchright[match] < ssr_len-1 ){ // delete allowed
-						delete_sumbase+=(ssr_len-match);
-						if( (delete_sumbase + mismatch_sumbase + insert_sumbase) > ssrlen_p*unmatch_ssr_p && (start_new - start) < ssrlen_p ){
-							delete_sumbase-=(ssr_len-match);
-							break;
-						}
-						else if( (delete_sumbase + mismatch_sumbase + insert_sumbase) > (start_new - start)*unmatch_ssr_p && (start_new - start) >= ssrlen_p ){
-							delete_sumbase-=(ssr_len-match);
-							break;
-						}
-					}
+					//		break;
+					//	}
+					//}
+					//else if( matchright[match] == ssr_len-1 ){ // mismatch allowed
+					//	mismatch_sumbase+=(ssr_len-match);
+					//	if( (delete_sumbase + mismatch_sumbase + insert_sumbase) > ssrlen_p*unmatch_ssr_p && (start_new - start) < ssrlen_p ){
+					//		mismatch_sumbase-=(ssr_len-match);
+					//		break;
+					//	}
+					//	else if( (delete_sumbase + mismatch_sumbase + insert_sumbase) > (start_new - start)*unmatch_ssr_p && (start_new - start) >= ssrlen_p ){
+					//		mismatch_sumbase-=(ssr_len-match);
+					//		break;
+					//	}
+					//}
+					//else if( matchright[match] < ssr_len-1 ){ // delete allowed
+					//	delete_sumbase+=(ssr_len-match);
+					//	if( (delete_sumbase + mismatch_sumbase + insert_sumbase) > ssrlen_p*unmatch_ssr_p && (start_new - start) < ssrlen_p ){
+					//		delete_sumbase-=(ssr_len-match);
+					//		break;
+					//	}
+					//	else if( (delete_sumbase + mismatch_sumbase + insert_sumbase) > (start_new - start)*unmatch_ssr_p && (start_new - start) >= ssrlen_p ){
+					//		delete_sumbase-=(ssr_len-match);
+					//		break;
+					//	}
+					//}
 
 					ssr_region+=DNA.substr(start_new,matchright[match]+1);
 					ssr_region+=" ";
 					start_new+=matchright[match]+1;
 
                                 }
+				
                         }
 
 			//if( ssr_len * repeat >= ssrlen_p && (start_new - start) >= ssrlen_p && repeat >= mincopy_p ){

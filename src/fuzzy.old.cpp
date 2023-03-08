@@ -27,10 +27,40 @@ void find_fuzzy(string DNA, string id, int unitlen_p, int insertion_p, float unm
                 for (unsigned short ssr_len=1; ssr_len<= unitlen_p ; ssr_len++){ // unitlen_p : longest length of unit, default: 6
 			
 			unsigned int ssrlen_p=cutoff_array_main[ssr_len-1]*ssr_len;
+			//if( start+(ssr_len*2+insertion_p) > DNA.length() ){ // at least two repeats will be output, if start+ssr_len * 2 > DNA.length, which will be no meaning
+			//	break;
+			//}
+			
+			//if( ssr_len > 1){ // avoid AAAAA as a unit
+			//	char add_left;
+			//	char add_right;
+			//	int add_match=0;
+			//	for ( short add=0; add < ssr_len+insertion_p; add++ ){
+			//		add_left=(DNA[start + add]);
+			//		add_right=(DNA[start + ssr_len + insertion_p + add]);
+			//		if( add_left != add_right ){
+			//			break;
+			//		}
+			//		else{
+			//			add_match++;
+			//		}
+			//	}
+			
+			//	if( add_match == ssr_len+insertion_p ){
+			//		continue;
+			//	}
+			//}
+			
 			unsigned short repeat=1;
 			unsigned int start_new=start+ssr_len;
 
 			string ssr_region; // used for output
+
+			//string left_unit;
+			//for( int site0=start; site0 < ssr_len; ++site0 ){
+			//	cout << site0 << endl;
+			//	left_unit+=DNA[site0];
+			//}
 
 			string left_unit=DNA.substr( start, ssr_len ); // used for output
 			
@@ -46,15 +76,12 @@ void find_fuzzy(string DNA, string id, int unitlen_p, int insertion_p, float unm
                                 short match=0; // total matched base number between unit and next unit;
                                 short rightstart=0;
                                 int insertion_change=insertion; // maximum insertion length within next unit;
-				int matchright[ssr_len+insertion_p]={0};
+				int matchright[ssr_len+insertion_p];
 				int site[ssr_len]={0};
 
                                 for ( short base=0; base<ssr_len; base++ ){// compare unit and next unit
                                         
-					char left(DNA[start+base]);
-					if( left == 'N' ){
-						break;
-					}
+					char left;
                                         char right;
 
                                         for( short ins=0; ins <= insertion_change; ins++ ){ // for each base comparision, how many insertion quota left.
@@ -64,6 +91,9 @@ void find_fuzzy(string DNA, string id, int unitlen_p, int insertion_p, float unm
 						
 						if( left != right ){
 							continue;
+						}
+						else if( left == 'N' ){
+							break;
 						}
 						else if( left == right ){
 							site[base]=1;
@@ -97,6 +127,7 @@ void find_fuzzy(string DNA, string id, int unitlen_p, int insertion_p, float unm
 					else{ // when unit length = 1, unmatch will be considered as insertion. Eventhough insertion is the same as mismatch.
 						insert_sumbase+=matchright[1];
 						if( (start_new - start) < ssrlen_p && insert_sumbase > ssrlen_p*unmatch_ssr_p ){
+						//if( (start_new - start) < ssrlen_p*ssr_len && insert_sumbase > ssrlen_p*unmatch_ssr_p ){
 							insert_sumbase-=matchright[1];
 							break;
 						}
@@ -106,7 +137,14 @@ void find_fuzzy(string DNA, string id, int unitlen_p, int insertion_p, float unm
 						}
 					}
 
+					//string unit_next;
+					//for( int site=start_new; site<matchright[match]+1; ++site ){
+					//	unit_next=DNA[site];
+					//}
+
                                         ssr_region+=DNA.substr(start_new,matchright[match]+1);
+                                        
+					//ssr_region+=unit_next;
 					ssr_region+=" ";
                                         start_new+=matchright[match]+1;
 
@@ -123,8 +161,8 @@ void find_fuzzy(string DNA, string id, int unitlen_p, int insertion_p, float unm
 					}
 
 					//2) whole region level
-					else if( match == ssr_len ){ //if match == ssr_len, which mean that no mismatch and no deletion there
-						insert_sumbase+=(matchright[match]-(ssr_len-1)); // could be 0 or larger than 0
+					else if( match == ssr_len ){ // insertion allowed
+						insert_sumbase+=(matchright[match]-(ssr_len-1));
 						if( (delete_sumbase + mismatch_sumbase + insert_sumbase) > ssrlen_p*unmatch_ssr_p && (start_new - start) < ssrlen_p){
 							insert_sumbase-=(matchright[match]-(ssr_len-1));
 							//cout << start << "\t" << ssr_len << "\t" << "(delete_sumbase + mismatch_sumbase + insert_sumbase) > ssrlen_p*unmatch_ssr_p" << endl;
@@ -136,7 +174,7 @@ void find_fuzzy(string DNA, string id, int unitlen_p, int insertion_p, float unm
 							break;
 						}
 					}
-					else if( matchright[match] == ssr_len-1 ){ // if match < ssr_len, maybe mismatch or deletion 
+					else if( matchright[match] == ssr_len-1 ){ // mismatch allowed
 						mismatch_sumbase+=(ssr_len-match);
 						if( (delete_sumbase + mismatch_sumbase + insert_sumbase) > ssrlen_p*unmatch_ssr_p && (start_new - start) < ssrlen_p ){
 							mismatch_sumbase-=(ssr_len-match);
@@ -159,7 +197,12 @@ void find_fuzzy(string DNA, string id, int unitlen_p, int insertion_p, float unm
 						}
 					}
 
+					//string unit_next;
+					//for( int site2 = start_new; site2 < matchright[match]+1; ++site2 ){
+					//	unit_next+=DNA[site2];
+					//}
 					ssr_region+=DNA.substr(start_new,matchright[match]+1);
+					//ssr_region+=unit_next;
 					ssr_region+=" ";
 					start_new+=matchright[match]+1;
 
