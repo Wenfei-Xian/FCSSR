@@ -26,7 +26,7 @@ int main( int argc, char *argv[] ){
 }
 
 int usage(){
-	cout << "This program consists with two SRR searching modules: perfect and fuzzy" << endl;
+	cout << "This program consists with two SSR searching modules: perfect and fuzzy" << endl;
 	cout << "Version:1.0, March,2023" << endl;
 	cout << "Usage: FC_SSR <command> <arguments>" << endl;
 	cout << "Command:" << endl;
