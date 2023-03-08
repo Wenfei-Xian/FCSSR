@@ -39,7 +39,7 @@ arguments:
 	-c string     copy cutoff for each unit, the number of cutoff should be the same as SSR unit (default value: 10,5,4,3,2,2)
 	-m int        maximum length of unmatch within unit (default value: 1)
 	-b int        whether allow deletion/mismatch and insertion retain in one unit, 1 allow, 0 not allow (default value: 0)
-	-P int        maximum unmatch(inserted+mismatch+deleted) percentage whold SSRs region (default value: 0.1)
+	-P int        maximum unmatch(inserted+mismatch+deleted) percentage of the whole SSRs region (default value: 0.1)
 	-u int        whether to replace all letters with uppercase letters (default value: 1 -> replace; 0 -> don't replace)
 	-s int        whether output the flanking sequnce of SSR region (default value: 0 -> don't output; length of flanking sequences -> output)
 	-r int        whether output the reverse complement sequence (defalut value: 0 -> don't output; 1 -> output)
@@ -54,13 +54,8 @@ arguments:
 
 -i: maximum length of insertion allowed within unit. The default value is 1. When the unit length is 5, the first 5bp sequence will be compared with the next 6bp (5bp+1bp) sequences. 
 
--m: maximum unmatch (insertion+mismatch+deletion) with unit. The default value is 1. The longest common sequence (LCS) of the frist 5bp sequence and the next 6bp sequence is 5-1=4bp.
+-m: maximum unmatch (insertion+mismatch+deletion) with unit. The default value is 1. The longest common sequence (LCS) of the frist 5bp sequence and the next 6bp sequence should larger or equal to 5-1=4bp.
 
 -b: whether allow deletion/mismatch and insertion exists in one unit. The default value is 0. Such as ATCG ACTG, the LCS is 3, but the edit distance is 2. In a DNA molecular, ATCG needs to undergo two mutations to become ACTG. If you want to search conservated SSR, please set the value to 0.
 
-
-
-
-
-
-
+-P: maximum unmatch(inserted+mismatch+deleted) percentage of the whole SSR region. The default value is 0.1. If the whole SSR region is 15bp, the unmatch number should small than 15*0.1 = 0.15.
