@@ -1,4 +1,4 @@
-# FC_SSR
+# FCSSR
 A Fast and Comprehensive Short Simple Repeat Finder
 ## Installation
 ```
