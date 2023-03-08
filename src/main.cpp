@@ -276,7 +276,7 @@ int fuzzy_model( int argc, char *argv[] ){
 		cout << "	-c string     copy cutoff for each unit, the number of cutoff should be the same as SSR unit (default value: 10,5,4,3,2,2)" << endl;
 		cout << "	-m int        maximum length of unmatch within unit (default value: 1)" << endl;
 		cout << "	-b int        whether allow deletion/mismatch and insertion retain in one unit, 1 allow, 0 not allow (default value: 0)" << endl;
-		cout << "	-P int        maximum unmatch(inserted+mismatch+deleted) percentage whold SSRs region (default value: 0.1)" << endl;
+		cout << "	-P int        maximum unmatch(inserted+mismatch+deleted) percentage of the whole SSR region (default value: 0.1)" << endl;
 		cout << "	-u int        whether to replace all letters with uppercase letters (default value: 1 -> replace; 0 -> don't replace)" << endl;
 		cout << "	-s int        whether output the flanking sequnce of SSR region (default value: 0 -> don't output; length of flanking sequences -> output)" << endl;
 		cout << "	-r int        whether output the reverse complement sequence (defalut value: 0 -> don't output; 1 -> output)" << endl; 
