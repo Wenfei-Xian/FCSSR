@@ -138,7 +138,7 @@ int perfect_model( int argc, char *argv[] ){
 		cout << "       -c string     lenght cutoff for each unit, the number of cutoff should be the same as SSR unit (default value: 10,5,4,3,2,2)" << endl;
 		cout << "       -s int        whether output the flanking sequence of SSR region (default value: 0 -> don't output; -s1 -> output)" << endl;
 		cout << "       -u int        whether replace all letters with uppercase letters (default value: 1 -> replace; -u0 -> don't replace)" << endl;
-		cout << "       -r int        whether output the reverse complement sequeuce (default value: 0 -> don't output; -r1 -> output)" << endl; 
+		cout << "       -r int        whether output the reverse complement sequence (default value: 0 -> don't output; -r1 -> output)" << endl; 
 		return -1;
 	}
 	
@@ -279,7 +279,7 @@ int fuzzy_model( int argc, char *argv[] ){
 		cout << "	-P int        maximum unmatch(inserted+mismatch+deleted) percentage whold SSRs region (default value: 0.1)" << endl;
 		cout << "	-u int        whether to replace all letters with uppercase letters (default value: 1 -> replace; 0 -> don't replace)" << endl;
 		cout << "	-s int        whether output the flanking sequnce of SSR region (default value: 0 -> don't output; 1 -> output)" << endl;
-		cout << "	-r int        whether output the reverse complement sequeuce (defalut value: 0 -> don't output; 1 -> output)" << endl; 
+		cout << "	-r int        whether output the reverse complement sequence (defalut value: 0 -> don't output; 1 -> output)" << endl; 
 		return -1;
         }
 
