@@ -48,6 +48,10 @@ arguments:
 
 -l: maximum length of SSR unit. The default value is 6, which means that unit lenght among 1-6 nt will be used. If you want to search longer unit, please increase the number to what you want, such as 10.
 
--c: copy cutoff for each unit. The default value is 10,5,4,3,2,2, which mean that when unit length is 1, only copy number larger or equal to 10 will be output, unit lenght is 2, only copy number larger or equal to 5 will be output.
+-c: copy cutoff for each unit. The default value is 10,5,4,3,2,2, which mean that when unit length is 1, only copy number larger or equal to 10 will be output, when unit lenght is 2, only copy number larger or equal to 5 will be output.
+
+-s: whether output the flanking sequence of SSR. The default value is 0, which mean that no flanking sequences will be outoupt. When you set -s 100, flanking 100bp sequence will be output
+
+-i: maximum length of insertion allowed within unit. The default value is 1, which mean that when the unit length is 5, the first 5bp sequence will be compared with the next 6bp (5bp+1bp) sequences. 
 
 
