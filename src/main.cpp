@@ -28,7 +28,7 @@ int main( int argc, char *argv[] ){
 int usage(){
 	cout << "This program consists of two SSR searching modules: perfect and fuzzy" << endl;
 	cout << "Version:1.0, March,2023" << endl;
-	cout << "Usage: FC_SSR <command> <arguments>" << endl;
+	cout << "Usage: FC_SSR <command> [options]" << endl;
 	cout << "Command:" << endl;
 	cout << "	perfect: perfect model" << endl;
 	cout << "	fuzzy: fuzzy model" << endl;
@@ -56,7 +56,7 @@ int annotation_module( int argc, char *argv[] ){
 	}
 
 	if( para != 2 ){
-		cout << "Usage: FC_SSR annotation <argument>" << endl;
+		cout << "Usage: FC_SSR annotation [options]" << endl;
 		cout << "arguments:" << endl;
 		cout << "	-g string        gene location file in gff format" << endl;
 		cout << "	-b string        SSR location file in bed format" << endl;
@@ -128,9 +128,9 @@ int perfect_model( int argc, char *argv[] ){
 	}
 
 	if( para == 0 ){ // defaule !=6
-		cout << "Usage: FC_SSR perfect <argument>" << endl;
+		cout << "Usage: FC_SSR perfect " << endl;
 		//cout << "except -f XX.fa, other parameter don't contain space: -f6" << endl;
-	        cout << "arguments:" << endl;
+	        cout << "options:" << endl;
         	cout << "       -f string     fasta format file (mandatory)" << endl;
        		cout << "       -l int        maximum length of SSR unit (default value: 6)" << endl;
         	//cout << "       -L int        minimum length of SSRs region (default value: 10)" << endl;
@@ -265,7 +265,7 @@ int fuzzy_model( int argc, char *argv[] ){
 	}
 
         if( para == 0 ){
-                cout << "Usage: FC_SSR perfect <argument>" << endl;
+                cout << "Usage: FC_SSR perfect [options]" << endl;
                 cout << "arguments:" << endl;
 		//cout << "except -f XX.fa, other parameter don't contain space: -f6" << endl;
                 cout << "	-f string     fasta format file (mandatory)" << endl;
