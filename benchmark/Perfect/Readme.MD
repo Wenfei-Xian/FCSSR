@@ -16,9 +16,7 @@ Time consumming
 | Kmer-SSR | 192.75/192.56 | 193.32/193.20 | 189.25/189.18 | 191.77/191.65 |
 
 
-Visualzion
+Visualization (by TBtools with *site files)
 ![image](https://github.com/Wenfei-Xian/FCSSR/blob/main/benchmark/Perfect/perfect-ssr.png)
-
-All the *site files are the input for upset plot.
 
 #All jobs ran on AMD EPYC 7742 64-Core Processor
