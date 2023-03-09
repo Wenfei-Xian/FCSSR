@@ -1,0 +1,84 @@
+FCSSR:
+real 4.53
+user 4.43
+sys 0.09
+Divissr:
+real 4.13
+user 5.84
+sys 5.73
+Kmer-SSR:
+real 192.75
+user 192.56
+sys 0.18
+Misa:
+real 127.26
+user 126.19
+sys 0.97
+python-PERF:
+real 59.10
+user 60.54
+sys 5.95
+pypy-PERF:
+real 14.72
+user 16.05
+sys 6.06
+Dot2dot:
+real 23.58
+user 20.26
+sys 3.31
+FCSSR:
+real 4.33
+user 4.25
+sys 0.06
+Divissr:
+real 3.91
+user 5.47
+sys 5.88
+Kmer-SSR:
+real 193.32
+user 193.20
+sys 0.10
+Misa:
+real 124.44
+user 123.30
+sys 0.97
+python-PERF:
+real 60.93
+user 62.40
+sys 5.92
+pypy-PERF:
+real 15.00
+user 16.23
+sys 6.15
+Dot2dot:
+real 21.49
+user 20.62
+sys 0.86
+FCSSR:
+real 4.42
+user 4.31
+sys 0.09
+Divissr:
+real 4.48
+user 6.05
+sys 5.79
+Kmer-SSR:
+real 189.25
+user 189.18
+sys 0.06
+Misa:
+real 127.42
+user 125.97
+sys 0.94
+python-PERF:
+real 58.74
+user 60.17
+sys 5.97
+pypy-PERF:
+real 15.51
+user 16.61
+sys 6.26
+Dot2dot:
+real 21.66
+user 20.82
+sys 0.82
