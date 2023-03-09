@@ -54,7 +54,7 @@ arguments:
 
 -i: maximum length of insertion allowed within unit. The default value is 1. When the unit length is 5, the first 5bp sequence will be compared with the next 6bp (5bp+1bp) sequences. 
 
--m: maximum unmatch (insertion+mismatch+deletion) with unit. The default value is 1. The longest common sequence (LCS) of the frist 5bp sequence and the next 6bp sequence should larger or equal to 5-1=4bp.
+-m: maximum unmatch (insertion+mismatch+deletion) with unit. The default value is 1. The longest common sequence (LCS) of the first 5bp sequence and the next 6bp sequence should larger or equal to 5-1=4bp.
 
 -b: whether allow deletion/mismatch and insertion exists in one unit. The default value is 0. Such as ATCG ACTG, the LCS is 3, but the edit distance is 2. In a DNA molecular, ATCG needs to undergo two mutations to become ACTG. If you want to search conservated SSR, please set the value to 0.
 
