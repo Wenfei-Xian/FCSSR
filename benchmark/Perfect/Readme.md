@@ -2,9 +2,8 @@ This script was used to benchmark of perfect SSR tools.
 ```
 for i in {1..3};do bash benckmark.sh t2t-col.20210610.fa ;done > time.txt
 ```
-
-
-Time consumming
+***
+**Time consumming**
 | tools | run1 Real time(s)/CPU time(s) | run2 | run3 | average | 
 | --- | --- | --- | --- | --- |
 | FCSSR | 4.43/4.53 | 4.33/4.25 | 4.42/4.31 | 4.39/4.36 |
@@ -14,14 +13,12 @@ Time consumming
 | PERF-python | 59.10/60.54 | 60.93/62.40 | 58.74/60.17 | 59.59/61.04 |
 | Misa | 127.26/126.19 | 124.44/123.30 | 127.42/125.97 | 126.37/125.15|
 | Kmer-SSR | 192.75/192.56 | 193.32/193.20 | 189.25/189.18 | 191.77/191.65 |
-
-
-Consistency: (Visualization using TBtools with *site files)
+***
+**Consistency**(Visualization using TBtools with *site files)
 ![image](https://github.com/Wenfei-Xian/FCSSR/blob/main/benchmark/Perfect/perfect-ssr.png)
-
-
-###Short conclusion: 
+***
+**Short conclusion**
 
 FCSSR and Divissr use almost the same amount of time, with FCSSR even faster in terms of CPU time. In terms of consistency, all software has very high consistency.
-
+***
 #All jobs ran on AMD EPYC 7742 64-Core Processor
