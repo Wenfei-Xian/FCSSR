@@ -26,7 +26,6 @@ void find_fuzzy(string DNA, string id, int unitlen_p, int insertion_p, float unm
 
                 for (unsigned short ssr_len=1; ssr_len<= unitlen_p ; ssr_len++){ // unitlen_p : longest length of unit, default: 6
 
-			/*
 			int add_match=0;
                         if( ssr_len > 1){
                                 char add_left;
@@ -50,22 +49,6 @@ void find_fuzzy(string DNA, string id, int unitlen_p, int insertion_p, float unm
 			if( add_match == ssr_len+insertion_p ){
 				continue;
 			}
-			*/
-
-			int sim=1;
-			if( ssr_len > 1 ){
-				char add_left(DNA[start]);
-				for ( short j=1; j<ssr_len; ++j ){
-					char add_right(DNA[start+j]);
-					if( add_left == add_right ){
-						sim++;
-					}
-				}
-			}
-			if( sim == ssr_len ){
-				continue;
-			}
-
 
 			unsigned int ssrlen_p=cutoff_array_main[ssr_len-1]*ssr_len;
 			unsigned short repeat=1;
@@ -90,74 +73,41 @@ void find_fuzzy(string DNA, string id, int unitlen_p, int insertion_p, float unm
 				int matchright[ssr_len+insertion_p]={0};
 				int site[ssr_len]={0};
 
-				//in nature, the frequency of mismatch is higher than insertion and deletion
-				//So first, program will check, whether mismatch happen.
-			
-				for ( short base = 0; base < ssr_len; base++ ){
+                                for ( short base=0; base<ssr_len; base++ ){// compare unit and next unit
+                                        
 					char left(DNA[start+base]);
-
 					if( left == 'N' ){
 						break;
 					}
+                                        char right;
 
-					char right(DNA[start_new+rightstart]);
-					
-					//cout << start << "\t" << ssr_len << "\t" << left << "\t" << right << endl;
+                                        for( short ins=0; ins <= insertion_change; ins++ ){ // for each base comparision, how many insertion quota left.
 
-					if( left == right ){
-						match++;
-						matchright[match]=rightstart;
-					}
-					rightstart++;
-
-				}
-				//cout << start << "\t" << ssr_len << "\t" << match << endl;
-
-				// if mismatch is not suitable in this case, insertion and deletion will be considered
-				if( (ssr_len == 1 && match == 0 ) || (match < ssr_len - unmatch_num_p && ssr_len > 1) ){
-					
-					rightstart=0;
-					match=0;
-					insertion_change=insertion;
-					
-					for( short i=0; i < ssr_len+insertion_p; ++i){
-						matchright[i]=0;
-					}
-
-                                	for ( short base = 0; base < ssr_len; base++ ){// compare unit and next unit
-                                        
-						char left(DNA[start+base]);
-						if( left == 'N' ){
-							break;
-						}
-                                       		char right;
-
-                                        	for( short ins=0; ins <= insertion_change; ins++ ){ // for each base comparision, how many insertion quota left.
-                                                	right = (DNA[start_new+rightstart+ins]);
+                                                right = (DNA[start_new+rightstart+ins]);
 						
-							if( left != right ){
-								continue;
+						if( left != right ){
+							continue;
+						}
+						else if( left == right ){
+							site[base]=1;
+                                                        match++;
+                                                        matchright[match]=rightstart+ins;
+                                                        rightstart+=(ins+1);
+							if( base == 0 ){
+								insertion_change-=ins;
 							}
-							else if( left == right ){
-								site[base]=1;
-                                                        	match++;
-                                                        	matchright[match]=rightstart+ins;
-                                                        	rightstart+=(ins+1);
-								if( base == 0 ){
-									insertion_change-=ins;
-								}
-								else if( site[base-1]==1 ){
-                                                        		insertion_change-=ins;
-								}
-                                                        	break;
-                                                	}
-                                        	}
+							else if( site[base-1]==1 ){
+                                                        	insertion_change-=ins;
+							}
+                                                        break;
+                                                }
+                                        }
 					
-                                        	if( match < base-unmatch_num_p ){ // match = longest common sequence (LCS); if LCS shorter than base - maximum allowed, which mean loop was no meaningful, so stop it
-							break;
-                                        	}
-					}
-				}	
+                                        if( match < base-unmatch_num_p ){ // match = longest common sequence (LCS); if LCS shorter than base - maximum allowed, which mean loop was no meaningful, so stop it
+						break;
+                                        }
+
+                                }
 				
 				if( ssr_len == 1 ){
 
