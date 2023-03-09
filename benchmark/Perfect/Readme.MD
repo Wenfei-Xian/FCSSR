@@ -4,7 +4,7 @@ for i in {1..3};do bash benckmark.sh t2t-col.20210610.fa ;done > time.txt
 ```
 
 
-Time consumming #
+Time consumming
 | tools | run1 Real time(s)/CPU time(s) | run2 | run3 | average | 
 | --- | --- | --- | --- | --- |
 | FCSSR | 4.43/4.53 | 4.33/4.25 | 4.42/4.31 | 4.39/4.36 |
@@ -16,6 +16,8 @@ Time consumming #
 | Kmer-SSR | 192.75/192.56 | 193.32/193.20 | 189.25/189.18 | 191.77/191.65 |
 
 
+Visualzion
+![image]()
 All the *site files are the input for upset plot.
 
 #All jobs ran on AMD EPYC 7742 64-Core Processor
