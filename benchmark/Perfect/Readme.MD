@@ -19,7 +19,9 @@ Time consumming
 Consistency: (Visualization using TBtools with *site files)
 ![image](https://github.com/Wenfei-Xian/FCSSR/blob/main/benchmark/Perfect/perfect-ssr.png)
 
-Short conclusion: 
+
+###Short conclusion: 
+
 FCSSR and Divissr use almost the same amount of time, with FCSSR even faster in terms of CPU time. In terms of consistency, all software has very high consistency.
 
 #All jobs ran on AMD EPYC 7742 64-Core Processor
