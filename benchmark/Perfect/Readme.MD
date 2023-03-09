@@ -3,7 +3,8 @@ This script was used to benchmark of perfect SSR tools.
 for i in {1..3};do bash benckmark.sh t2t-col.20210610.fa ;done > time.txt
 ```
 
-#Time consumming
+
+Time consumming #
 | tools | run1 Real time(s)/CPU time(s) | run2 | run3 | average | 
 | --- | --- | --- | --- | --- |
 | FCSSR | 4.43/4.53 | 4.33/4.25 | 4.42/4.31 | 4.39/4.36 |
@@ -17,4 +18,4 @@ for i in {1..3};do bash benckmark.sh t2t-col.20210610.fa ;done > time.txt
 
 All the *site files are the input for upset plot.
 
-All jobs ran on AMD EPYC 7742 64-Core Processor
+#All jobs ran on AMD EPYC 7742 64-Core Processor
