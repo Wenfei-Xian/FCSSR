@@ -3,7 +3,7 @@ This script was used to benchmark of perfect SSR tools.
 for i in {1..3};do bash benckmark.sh t2t-col.20210610.fa ;done > time.txt
 ```
 
-| tools | run1(CPU time/real time) | run2 | run3 | average | 
+| tools | run1 CPU time(s)/Real time(s) | run2 | run3 | average | 
 | --- | --- | --- | --- | --- |
 | FCSSR | | | | |
 | Divissr | | | | |
