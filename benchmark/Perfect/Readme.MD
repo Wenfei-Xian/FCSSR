@@ -17,7 +17,7 @@ Time consumming
 
 
 Visualzion
-![image](https://github.com/Wenfei-Xian/FCSSR/blob/main/benchmark/Perfect/perfect-ssr.pdf)
+![image](https://github.com/Wenfei-Xian/FCSSR/blob/main/benchmark/Perfect/perfect-ssr.png)
 
 All the *site files are the input for upset plot.
 
