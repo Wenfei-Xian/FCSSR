@@ -17,7 +17,8 @@ Time consumming
 
 
 Visualzion
-![image]()
+![image](https://github.com/Wenfei-Xian/FCSSR/blob/main/benchmark/Perfect/perfect-ssr.pdf)
+
 All the *site files are the input for upset plot.
 
 #All jobs ran on AMD EPYC 7742 64-Core Processor
