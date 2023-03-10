@@ -93,5 +93,5 @@ perl plot.pl intersect.txt > dot.txt
 Rscript plot.r
 ```
 
-![image]()
+![image](https://github.com/Wenfei-Xian/FCSSR/blob/main/benchmark/Fuzzy/length%20distribution.png)
 
