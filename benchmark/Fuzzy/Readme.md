@@ -118,6 +118,11 @@ vcftools --vcf trf.call.filter.vcf --max-missing 0.1 --recode --recode-INFO-all 
 vcftools --vcf fcssr.call.filter.vcf  --max-missing 0.1 --recode --recode-INFO-all --out fcssr.call.filter.maxmissing0.1
 ```
 Non-ref allele rate should be larger than 10%
+```
+perl step2.poly.AC.pl fcssr.call.filter.maxmissing0.1.recode.vcf 0.05 > fcssr.call.filter.maxmissing0.1.AC0.05recode.vcf
+perl step2.poly.AC.pl fcssr.call.filter.maxmissing0.1.recode.vcf 0.05 > fcssr.call.filter.maxmissing0.1.AC0.05recode.vcf
+
+```
 
 
 
