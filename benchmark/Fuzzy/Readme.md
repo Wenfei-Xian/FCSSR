@@ -95,3 +95,5 @@ Rscript plot.r
 
 ![image](https://github.com/Wenfei-Xian/FCSSR/blob/main/benchmark/Fuzzy/length%20distribution.png)
 
+**3) polymerphic SSR**
+
