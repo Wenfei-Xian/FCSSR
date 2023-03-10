@@ -69,4 +69,5 @@ awk '{if( ($4 == 2 && $5>=6) || ($4 == 3 && $5>=5) ||($4 == 4 && $5>=3.8) ||($4 
 bedtools sort -i mm10.hipstr_reference.noncentro.trf.bed > fcssr.ref.bed
 ```
 
+
 **2) Comparison between TRF and FCSSR**
