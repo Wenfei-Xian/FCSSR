@@ -106,7 +106,7 @@ HipSTR --bams bamfiles --fasta t2t-col.20210610.fa --regions fcssr.ref.bed --str
 ```
 Quality filter
 ```
-#filter_vcf.py downloaded from https://github.com/HipSTR-Tool/HipSTR/tree/master/scripts
+#filter_vcf.py was downloaded from https://github.com/HipSTR-Tool/HipSTR/tree/master/scripts
 python HipSTR/scripts/filter_vcf.py --vcf trf.call.vcf.gz --min-call-qual 0.9 --max-call-flank-indel 0.15 --max-call-stutter 0.15 --min-call-allele-bias -2 --min-call-strand-bias -2 --min-loc-depth 5 > trf.call.filter.vcf
 python HipSTR/scripts/filter_vcf.py --vcf fcssr.call.vcf.gz --min-call-qual 0.9 --max-call-flank-indel 0.15 --max-call-stutter 0.15 --min-call-allele-bias -2 --min-call-strand-bias -2 --min-loc-depth 5 > fcssr.call.filter.vcf
 ```
