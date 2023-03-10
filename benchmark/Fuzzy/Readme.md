@@ -125,7 +125,6 @@ perl step2.poly.AC.pl fcssr.call.filter.maxmissing0.1.recode.vcf 0.05 > fcssr.ca
 ```
 
 **Number of polymerphic SSR loci**
+
 FCSSR+Hipstr: 23,974
 TRF+Hipstr: 15,250
-
-
