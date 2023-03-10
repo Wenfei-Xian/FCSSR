@@ -85,3 +85,12 @@ overlaploci=`bedtools intersect -a trf.ref.bed -b fcssr.ref.bed -wa -wb | awk '{
 trf=`less trf.ref.bed| wc -l`
 echo "scale=3; $overlaploci/$trf*100" | bc
 ```
+
+Length (unit length * copy number) distribution of the overlap SSR loci between TRF and FCSSR
+```
+bedtools intersect -a fcssr.ref.bed -b trf.ref.bed -wa -wb > intersect.txt
+perl plot.pl intersect.txt > dot.txt
+Rscript plot.r
+```
+
+
