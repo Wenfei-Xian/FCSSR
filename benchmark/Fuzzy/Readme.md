@@ -97,3 +97,12 @@ Rscript plot.r
 
 **3) polymerphic SSR**
 
+Hipstr
+```
+#TRF
+HipSTR --bams bamfiles --fasta t2t-col.20210610.fa --regions trf.ref.bed --str-vcf trf.call.vcf.gz
+#FCSSR
+HipSTR --bams bamfiles --fasta t2t-col.20210610.fa --regions fcssr.ref.bed --str-vcf fcssr.call.vcf.gz
+```
+
+
