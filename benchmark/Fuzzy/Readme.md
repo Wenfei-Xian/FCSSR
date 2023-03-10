@@ -78,3 +78,10 @@ overlaploci=`bedtools intersect -a trf.ref.bed -b ../01.FCSSR/mm10.hipstr_refere
 trf=`less trf.ref.bed| wc -l`
 echo "scale=3; $overlaploci/$trf*100" | bc
 ```
+
+After length filter, 87% TRF loci overlap with FCSSR loci
+```
+overlaploci=`bedtools intersect -a trf.ref.bed -b fcssr.ref.bed -wa -wb | awk '{print $6}' | sort | uniq | wc -l`
+trf=`less trf.ref.bed| wc -l`
+echo "scale=3; $overlaploci/$trf*100" | bc
+```
