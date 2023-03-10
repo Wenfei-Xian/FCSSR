@@ -41,7 +41,8 @@ perl filter.bed.pl ../01.FCSSR/centromere.gff mm10.hipstr_reference.bed > trf.re
 ```
 
 FCSSR fuzzy
-#Identification of fuzzy SSR using FCSSR and exclude the homopolyers
+
+Identification of fuzzy SSR using FCSSR and exclude the homopolyers
 
 ```
 ../benchmark_perfect/bin/FCSSR/src/FCSSR fuzzy -f /tmp/global2/wxian/00.data/t2t-col.20210610.fa -c 10,6,5,4,3,3 | awk 'NR>1{if( $4 != "A" && $4 != "T" && $4 != "C" && $4 != "G" )print}' > fcssr.2-6nt.bed 
@@ -59,14 +60,11 @@ The same as what TRF do
 ```
 bedtools merge -i pass.mm10.r2 -c 4,6 -o collapse -d 10 | grep -v "," > pass.mm10.r3
 bedtools merge -i pass.mm10.r2 -c 4,4,4,6 -o collapse,count_distinct,distinct,collapse -d 10 | grep "," | awk '$5 == 1' | awk -v OFS="\t" '{print $1, $2, $3, $6, $7}' | sed "s/,/\//g" >> pass.mm10.r3
-
 cat pass.mm10.r3 | bedtools sort | awk -v OFS="\t" '{print $1, $2, $3, $4, ($3-$2+1)/$4, "FCSSR_STR_"NR, $5}' > mm10.hipstr_reference.bed
-
 perl filter.centromere.pl centromere.gff mm10.hipstr_reference.bed > mm10.hipstr_reference.noncentro.bed
 ```
 In order to be comparable with TRF, first we calculate the minimum number of copies of each unit in the trf.ref.bed, and then filter our results
 ```
 awk '{if( ($4 == 2 && $5>=6) || ($4 == 3 && $5>=5) ||($4 == 4 && $5>=3.8) ||($4 == 5 && $5>=3.4) ||($4 == 6 && $5>=3) )print}' mm10.hipstr_reference.noncentro.bed > mm10.hipstr_reference.noncentro.trf.bed
-
 bedtools sort -i mm10.hipstr_reference.noncentro.trf.bed > fcssr.ref.bed
 ```
