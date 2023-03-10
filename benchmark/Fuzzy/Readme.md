@@ -71,3 +71,10 @@ bedtools sort -i mm10.hipstr_reference.noncentro.trf.bed > fcssr.ref.bed
 
 
 **2) Comparison between TRF and FCSSR**
+
+Before length filter, 97.1% TRF loci overlap with FCSSR loci
+```
+overlaploci=`bedtools intersect -a trf.ref.bed -b ../01.FCSSR/mm10.hipstr_reference.noncentro.bed -wa -wb | awk '{print $6}' | sort | uniq | wc -l`
+trf=`less trf.ref.bed| wc -l`
+echo "scale=3; $overlaploci/$trf*100" | bc
+```
