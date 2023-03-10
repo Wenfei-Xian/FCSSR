@@ -1,7 +1,10 @@
 1) Fuzzy SSRs identification
 
-TRF
+TRF 
+
 ```
+#following the tutorial of https://github.com/HipSTR-Tool/HipSTR-references/blob/master/mouse/mouse_reference.md
+
 for i in {1..5};do
 	echo mm10/raw_fasta//$i.fa mm10/trf_results 5
 done | xargs -L 1 -P 30 ../HipSTR-references-master/scripts/run_TRF.sh
@@ -19,6 +22,7 @@ files=`echo $files | sed "s/,//"`
 
 python ../HipSTR-references-master/scripts/trf_parser.py $files > filtered_repeats.mm10.bed
 
+#exclude homopolymers
 awk '{if($4>1)print}' filtered_repeats.mm10.bed > filtered_repeats.mm10.2-6nt.bed
 
 bedtools sort -i filtered_repeats.mm10.2-6nt.bed > filtered_repeats.mm10.sorted.bed
@@ -33,5 +37,6 @@ bedtools merge -i pass.mm10.r2 -c 4,4,4,6 -o collapse,count_distinct,distinct,co
 
 cat pass.mm10.r3 | bedtools sort | awk -v OFS="\t" '{print $1, $2, $3, $4, ($3-$2+1)/$4, "TRF_STR_"NR, $5}' > mm10.hipstr_reference.bed
 
-perl ../01.FCSSR/filter.bed.pl ../01.FCSSR/centromere.gff mm10.hipstr_reference.bed > trf.ref.bed
+#exclude SSR loci with centromere region
+perl filter.bed.pl ../01.FCSSR/centromere.gff mm10.hipstr_reference.bed > trf.ref.bed
 ```
