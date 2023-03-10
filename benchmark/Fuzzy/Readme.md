@@ -110,5 +110,14 @@ Quality filter
 python HipSTR/scripts/filter_vcf.py --vcf trf.call.vcf.gz --min-call-qual 0.9 --max-call-flank-indel 0.15 --max-call-stutter 0.15 --min-call-allele-bias -2 --min-call-strand-bias -2 --min-loc-depth 5 > trf.call.filter.vcf
 python HipSTR/scripts/filter_vcf.py --vcf fcssr.call.vcf.gz --min-call-qual 0.9 --max-call-flank-indel 0.15 --max-call-stutter 0.15 --min-call-allele-bias -2 --min-call-strand-bias -2 --min-loc-depth 5 > fcssr.call.filter.vcf
 ```
+Population filter
+
+Maximum missing rate should be smaller than 10%
+```
+vcftools --vcf trf.call.filter.vcf --max-missing 0.1 --recode --recode-INFO-all --out trf.call.filter.maxmissing0.1
+vcftools --vcf fcssr.call.filter.vcf  --max-missing 0.1 --recode --recode-INFO-all --out fcssr.call.filter.maxmissing0.1
+```
+Non-ref allele rate should be larger than 10%
+
 
 
