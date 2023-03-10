@@ -63,7 +63,7 @@ bedtools merge -i pass.mm10.r2 -c 4,4,4,6 -o collapse,count_distinct,distinct,co
 cat pass.mm10.r3 | bedtools sort | awk -v OFS="\t" '{print $1, $2, $3, $4, ($3-$2+1)/$4, "FCSSR_STR_"NR, $5}' > mm10.hipstr_reference.bed
 perl filter.centromere.pl centromere.gff mm10.hipstr_reference.bed > mm10.hipstr_reference.noncentro.bed
 ```
-In order to be comparable with TRF, first we calculate the minimum number of copies of each unit in the trf.ref.bed, and then filter our results
+In order to be comparable with TRF, first we calculate the minimum number of copies of each unit in the trf.ref.bed (unit length-> minimum copy: 2->6; 3->5; 4->3.8; 5->3.4; 6->3), and then filter our results
 ```
 awk '{if( ($4 == 2 && $5>=6) || ($4 == 3 && $5>=5) ||($4 == 4 && $5>=3.8) ||($4 == 5 && $5>=3.4) ||($4 == 6 && $5>=3) )print}' mm10.hipstr_reference.noncentro.bed > mm10.hipstr_reference.noncentro.trf.bed
 bedtools sort -i mm10.hipstr_reference.noncentro.trf.bed > fcssr.ref.bed
