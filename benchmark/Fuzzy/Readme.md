@@ -1,4 +1,4 @@
-SSRs panel construction
+1) SSRs panel construction
 
 TRF 
 
@@ -68,3 +68,5 @@ In order to be comparable with TRF, first we calculate the minimum number of cop
 awk '{if( ($4 == 2 && $5>=6) || ($4 == 3 && $5>=5) ||($4 == 4 && $5>=3.8) ||($4 == 5 && $5>=3.4) ||($4 == 6 && $5>=3) )print}' mm10.hipstr_reference.noncentro.bed > mm10.hipstr_reference.noncentro.trf.bed
 bedtools sort -i mm10.hipstr_reference.noncentro.trf.bed > fcssr.ref.bed
 ```
+
+2) Comparison between trf.ref.bed and fcssr.ref.bed
