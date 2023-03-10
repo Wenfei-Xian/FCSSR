@@ -56,7 +56,7 @@ cat merge.bed tmp > tmp2
 bedtools sort -i tmp2 > pass.mm10.r2
 ```
 
-The same as what TRF do
+The same as what has been done on TRF result
 ```
 bedtools merge -i pass.mm10.r2 -c 4,6 -o collapse -d 10 | grep -v "," > pass.mm10.r3
 bedtools merge -i pass.mm10.r2 -c 4,4,4,6 -o collapse,count_distinct,distinct,collapse -d 10 | grep "," | awk '$5 == 1' | awk -v OFS="\t" '{print $1, $2, $3, $6, $7}' | sed "s/,/\//g" >> pass.mm10.r3
