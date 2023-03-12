@@ -3,4 +3,4 @@ all MA lines were downloaded from NCBI
 2) clean and q20 reads were mapped to Col-0 t2t assemblies using bwa-mem, PCR duplication were marked by MarkDuplicates in gatk-4.2.3.0
 3) Hipstr was used to genotyping all the SSR loci among the MA lines samples.
 4) Hipstr default filter
-5) vcftools maximum missing rate 0.1
+5) vcftools maximum missing rate 0.1. vcftools --vcf MAlines.hipstr.raw.vcf  --max-missing 0.1 --recode --recode-INFO-all --out MAlines.call.filter.maxmissing0.1
