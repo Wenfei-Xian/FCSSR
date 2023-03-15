@@ -8,5 +8,5 @@ Genotype of progenitor (G0) isn't missing.
 
 Genotype of offsprings should not the same as progenitor.
 
-*****Should I retain only homozygous variant ?
+**Should I retain only homozygous variant ?
 
