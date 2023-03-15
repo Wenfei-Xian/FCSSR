@@ -4,7 +4,7 @@
 
 **Filter**
 
-Genotype of progenitor (G0) isn't missing.
+Genotype of progenitor (G0) should not be missing.
 
 Genotype of offsprings should not the same as progenitor.
 
