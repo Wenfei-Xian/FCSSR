@@ -1,3 +1,3 @@
 Experimental design
 
-[imaige]
+![image]()
